@@ -29,7 +29,6 @@ const registerService = async (email, name, password) => {
     return [ 200, { success: true, message: 'Successfully created', authToken } ];
   } catch(error) {
     return SERVER_ERROR;
-    ;
   }
 };
 
