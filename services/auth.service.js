@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'Jubraj@Dev';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const INCORRECT_CREDENTIALS_ERROR = [ 400, { success: false, message: 'The credentials entered are incorrect' } ];
 const SERVER_ERROR = [ 500, { success: false, message: 'Some Error occured' } ];
