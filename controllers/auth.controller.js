@@ -1,13 +1,10 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-
-const fetchUser = require('../middleware/fetchUser');
 const { registerService, loginService } = require('../services/auth.service');
 
 const router = express.Router();
-const JWT_SECRET = 'Jubraj@Dev';
+
+const MISSING_FIELDS_ERROR_MESSAGE = 'Certain fields are empty or incorrect';
 
 router.post('/register', [
   body('email', 'Enter a valid email').isEmail(),
@@ -16,7 +13,7 @@ router.post('/register', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, message: 'Certain fields are empty or incorrect', errors: errors.array() });
+    return res.status(400).json({ success: false, message: MISSING_FIELDS_ERROR_MESSAGE, errors: errors.array() });
   }
 
   const { email, name, password } = req.body;
@@ -31,7 +28,7 @@ router.post('/login', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, message: 'Certain fields are empty or incorrect', errors: errors.array() });
+    return res.status(400).json({ success: false, message: MISSING_FIELDS_ERROR_MESSAGE, errors: errors.array() });
   }
 
   const { email, password } = req.body;
