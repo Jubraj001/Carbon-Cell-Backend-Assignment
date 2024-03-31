@@ -25,7 +25,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://carbon-cell-backend-assignment.vercel.app'
+        url: `https://localhost:${port}`
       }
     ]
   },
