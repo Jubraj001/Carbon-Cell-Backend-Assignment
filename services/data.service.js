@@ -12,13 +12,13 @@ const dataService = async (limit, category) => {
       data = data.filter(entry => entry.Category.toLowerCase() === category.toLowerCase());
     }
 
-    if(limit) {
+    if (limit) {
       data = data.slice(0, limit);
     }
 
     return [ 200, { success: true, data } ];
   } catch(error) {
-    return [ 500, { success: false, message: "Some error occured" } ];
+    return [ 500, { success: false, message: 'Internal Server Error' } ];
   }
 };
 

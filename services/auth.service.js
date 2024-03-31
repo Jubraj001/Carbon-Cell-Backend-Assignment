@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const INCORRECT_CREDENTIALS_ERROR = [ 400, { success: false, message: 'The credentials entered are incorrect' } ];
-const SERVER_ERROR = [ 500, { success: false, message: 'Some Error occured' } ];
+const INCORRECT_CREDENTIALS_ERROR = [ 400, { success: false, message: 'The credentials entered are incorrect!' } ];
+const SERVER_ERROR = [ 500, { success: false, message: 'Internal Server Error!' } ];
 
 const registerService = async (email, name, password) => {
   try {
     let user = await User.findOne({ email: email }).exec();
     if(user) {
-      return [ 400, { success: false, message: 'Sorry a user with this email already exists' } ];
+      return [ 400, { success: false, message: 'Sorry a user with this email already exists!' } ];
     }
 
     // Securing the password
@@ -26,7 +26,7 @@ const registerService = async (email, name, password) => {
 
     const authToken = generateJWT(user.id);
 
-    return [ 200, { success: true, message: 'Successfully created', authToken } ];
+    return [ 200, { success: true, message: 'Successfully registered!', authToken } ];
   } catch(error) {
     return SERVER_ERROR;
   }
@@ -46,7 +46,7 @@ const loginService = async (email, password) => {
 
     const authToken = generateJWT(user.id);
 
-    return [ 200, { success: true, message: 'Successfully logged in', authToken } ];
+    return [ 200, { success: true, message: 'Successfully logged in!', authToken } ];
   } catch(error) {
     return SERVER_ERROR;
   }
