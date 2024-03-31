@@ -25,7 +25,7 @@ const options = {
     },
     servers: [
       {
-        url: process.env.DOMAIN || 'http://localhost:5000'
+        url: '127.0.0.1:5000'
       }
     ]
   },
@@ -37,6 +37,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', auth);
 app.use('/api/data', data);
 
-app.listen(port, process.env.DOMAIN || '127.0.0.1', () => {
+app.listen(port, () => {
   console.log(`Started listening on port ${port}`)
 });
