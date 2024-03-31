@@ -1,6 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const { registerService, loginService } = require('../services/auth.service');
+const { registerService, loginService, getUserService } = require('../services/auth.service');
+const fetchUser = require('../middleware/fetchUser');
 
 const router = express.Router();
 
@@ -217,6 +218,68 @@ router.post('/login', [
 
   const { email, password } = req.body;
   const [ status, response ] = await loginService(email, password);
+
+  res.status(status).json(response);
+});
+
+/**
+ * @swagger
+ * /api/auth/get-info:
+ *   get:
+ *     summary: Retrieve user information
+ *     description: Retrieves user information based on the provided authentication token.
+ *     tags: [Authentication]
+ *     parameters:
+ *       - in: header
+ *         name: auth-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Authentication token for the user
+ *     responses:
+ *       '200':
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: The unique identifier of the user
+ *                 name:
+ *                   type: string
+ *                   description: The username of the user
+ *                 email:
+ *                   type: string
+ *                   description: The email address of the user
+*                 date:
+ *                   type: string
+ *                   description: Date when the account was created
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message indicating authentication failure
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message indicating a server-side issue
+ */
+
+router.get('/get-info', fetchUser, async(req, res) => {
+  const [ status, response ] = await getUserService(req.user.id);
 
   res.status(status).json(response);
 });

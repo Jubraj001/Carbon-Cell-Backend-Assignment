@@ -62,4 +62,13 @@ const generateJWT = (id) => {
   return jwt.sign(data, JWT_SECRET);
 };
 
-module.exports = { registerService, loginService };
+const getUserService = async (userId) => {
+  try {
+    const user = await User.findById(userId).select('-password');
+    return [ 200, user ];
+  } catch(error) {
+    return SERVER_ERROR;
+  }
+};
+
+module.exports = { registerService, loginService, getUserService };
