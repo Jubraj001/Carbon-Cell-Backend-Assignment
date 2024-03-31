@@ -14,7 +14,7 @@ const router = express.Router();
  * @swagger
  * /api/data:
  *   get:
- *     summary: Get data from public APIs
+ *     summary: Get data from public API and filter according to category or number of entries
  *     tags: [Data]
  *     parameters:
  *       - in: query

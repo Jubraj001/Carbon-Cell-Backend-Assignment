@@ -226,7 +226,7 @@ router.post('/login', [
  * @swagger
  * /api/auth/get-info:
  *   get:
- *     summary: Retrieve user information
+ *     summary: Retrieve user information [Protected Route]
  *     description: Retrieves user information based on the provided authentication token.
  *     tags: [Authentication]
  *     parameters:
