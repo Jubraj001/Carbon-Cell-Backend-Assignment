@@ -20,7 +20,7 @@ router.post('/register', [
   const [ status, response ] = await registerService(email, name, password);
 
   res.status(status).json(response);
-})
+});
 
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
@@ -35,6 +35,6 @@ router.post('/login', [
   const [ status, response ] = await loginService(email, password);
 
   res.status(status).json(response);
-})
+});
 
 module.exports = router;
