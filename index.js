@@ -37,6 +37,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', auth);
 app.use('/api/data', data);
 
-app.listen(port, () => {
+app.listen(port, process.env.DOMAIN || '127.0.0.1', () => {
   console.log(`Started listening on port ${port}`)
 });
