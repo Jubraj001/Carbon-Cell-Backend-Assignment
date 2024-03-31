@@ -8,6 +8,8 @@ const auth = require('./controllers/auth.controller');
 const data = require('./controllers/data.controller');
 const cors = require('cors');
 
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 connectToMongo();
 
 const app = express();
@@ -33,7 +35,7 @@ const options = {
 };
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customCssUrl: CSS_URL }));
 app.use('/api/auth', auth);
 app.use('/api/data', data);
 
