@@ -31,7 +31,7 @@ const options = {
     },
     servers: [
       {
-        url: `https://localhost:${port}`
+        url: process.env.DOMAIN || `https://localhost:${port}`
       }
     ]
   },
